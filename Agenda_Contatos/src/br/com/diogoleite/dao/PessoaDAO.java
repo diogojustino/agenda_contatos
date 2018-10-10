@@ -31,7 +31,7 @@ public class PessoaDAO {
                 + "email text, \n"
                 + "url text,\n"
                 + "telefone_fixo text, \n"
-                + "telefone_celular, \n"
+                + "telefone_celular\n"
                 + ");"; 
             Statement statement = connection.createStatement();
             statement.execute(sql);

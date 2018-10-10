@@ -8,6 +8,8 @@ package br.com.diogoleite.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author diogo_leite
@@ -15,7 +17,7 @@ import java.sql.SQLException;
 public class ConnectionDataBase {
     private static final ConnectionDataBase connectionDataBase;
     private static Connection connection;
-    private final String URL = "jdbc:sqlite:/banco_de_dados/agenda.db";
+    private final String URL = "jdbc:sqlite:banco_de_dados/agenda.db";
     private final String DRIVER = "org.sqlite.JDBC";
     static{
         connectionDataBase = new ConnectionDataBase();
@@ -30,7 +32,12 @@ public class ConnectionDataBase {
     public Connection getConnection() throws SQLException{
         
         if(connection == null){
-            connection = DriverManager.getConnection(URL);
+            try {
+                Class.forName(DRIVER);
+                connection = DriverManager.getConnection(URL);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ConnectionDataBase.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return connection;
     }
