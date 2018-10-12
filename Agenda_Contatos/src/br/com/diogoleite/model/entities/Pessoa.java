@@ -9,7 +9,7 @@ package br.com.diogoleite.model.entities;
  *
  * @author diogo_leite
  */
-public class Pessoa {
+public class Pessoa implements Comparable<Pessoa>{
     private Long id;
     private String nome;
     private String sobrenome;
@@ -20,7 +20,10 @@ public class Pessoa {
     
     public Pessoa(){}
     
-    public Pessoa(String nome, String sobrenome, String email, String url, String telefoneFixo, String telefoneCelular){
+    public Pessoa(String nome, String sobrenome, String email, String url, String telefoneFixo, String telefoneCelular) throws RuntimeException{
+        validarNome(nome);
+        validarTelefoneCelular(telefoneCelular);
+        
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.email = email;
@@ -37,7 +40,8 @@ public class Pessoa {
         return id;
     }
     
-    public void setNome(String nome){
+    public void setNome(String nome)throws RuntimeException{
+        validarNome(nome);
         this.nome = nome;
     }
     
@@ -77,12 +81,35 @@ public class Pessoa {
         return telefoneFixo;
     }
     
-    public void setTelefoneCelular(String telefoneCelular){
+    public void setTelefoneCelular(String telefoneCelular) throws RuntimeException{
+        validarTelefoneCelular(telefoneCelular);
         this.telefoneCelular = telefoneCelular;
     }
     
     public String getTelefoneCelular(){
         return telefoneCelular;
+    }
+    
+    @Override
+    public String toString(){
+        return String.format("Nome: %s %s%nEmail: %s%nURL: %s%nTelefone Fixo: %s%nTelefone Celular: %s", nome, sobrenome, email, url, telefoneFixo, telefoneCelular);
+    }
+    private void validarNome(String nome){
+        if(nome.length() < 3 ){
+            throw new RuntimeException("O nome do contato não pode ser vazio ou menor que 3 caracteres.");
+        }
+        
+    }
+    
+    private void validarTelefoneCelular(String telefoneCelular){
+        if(telefoneCelular.length() < 9){
+            throw new RuntimeException("O Celular precisa ter no minimo 9 caracteres. ");
+        }
+    }
+
+    @Override
+    public int compareTo(Pessoa pessoa) {
+        return nome.compareTo(pessoa.getNome());
     }
 }
 

@@ -29,23 +29,25 @@ public class ConnectionDataBase {
         return connectionDataBase;
     }
     
-    public Connection getConnection() throws SQLException{
-        
-        if(connection == null){
-            try {
-                Class.forName(DRIVER);
-                connection = DriverManager.getConnection(URL);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(ConnectionDataBase.class.getName()).log(Level.SEVERE, null, ex);
-            }
+    public Connection getConnection() {
+       
+        try {
+            Class.forName(DRIVER);
+            return DriverManager.getConnection(URL);
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw new RuntimeException("Erro ao abri conexão com o banco de dados.");
         }
-        return connection;
+      
     }
     
     
-    public void connectionClose() throws SQLException{
-        if(connection != null && !connection.isClosed()){
-            connection.close();
+    public void connectionClose() throws RuntimeException{
+        try {
+            if(connection != null && !connection.isClosed()){
+                connection.close();
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException("Erro ao fechar conexão com o banco de dados.");
         }
     }
     
