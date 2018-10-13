@@ -10,8 +10,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -74,9 +72,8 @@ public class PessoaDAO {
         Connection connection = connectionDataBase.getConnection();
         String sql = "UPDATE pessoa set nome = ?, sobrenome = ?, email = ?, url = ?, telefone_fixo = ?, telefone_celular = ? where id = ?";
 
-        PreparedStatement preparedStatement;
         try {
-            preparedStatement = connection.prepareStatement(sql);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, pessoa.getNome());
             preparedStatement.setString(2, pessoa.getSobrenome());
             preparedStatement.setString(3, pessoa.getEmail());
@@ -89,6 +86,7 @@ public class PessoaDAO {
             preparedStatement.close();
 
         } catch (SQLException ex) {
+
             throw new RuntimeException("Erro ao editar o Contato.");
         } finally {
             connectionDataBase.connectionClose();
@@ -106,11 +104,11 @@ public class PessoaDAO {
         try {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, pessoa.getId());
-
             preparedStatement.executeUpdate();
 
             preparedStatement.close();
         } catch (SQLException ex) {
+           
             throw new RuntimeException("Erro ao deletar um Contato.");
         } finally {
             connectionDataBase.connectionClose();
@@ -176,7 +174,8 @@ public class PessoaDAO {
             pessoa.setUrl(resultSet.getString("url"));
             pessoa.setTelefoneCelular(resultSet.getString("telefone_celular"));
             pessoa.setTelefoneFixo(resultSet.getString("telefone_fixo"));
-
+            
+            preparedStatement.close();
             return pessoa;
         } catch (SQLException ex) {
             throw new RuntimeException("Erro ao buscar um Contato.");

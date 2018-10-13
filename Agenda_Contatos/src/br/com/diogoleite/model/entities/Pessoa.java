@@ -92,7 +92,7 @@ public class Pessoa implements Comparable<Pessoa>{
     
     @Override
     public String toString(){
-        return String.format("Nome: %s %s%nEmail: %s%nURL: %s%nTelefone Fixo: %s%nTelefone Celular: %s", nome, sobrenome, email, url, telefoneFixo, telefoneCelular);
+        return String.format("ID: #%d%nNome: %s %s%nEmail: %s%nURL: %s%nTelefone Fixo: %s%nTelefone Celular: %s", id, nome, sobrenome, email, url, telefoneFixo, telefoneCelular);
     }
     private void validarNome(String nome){
         if(nome.length() < 3 ){

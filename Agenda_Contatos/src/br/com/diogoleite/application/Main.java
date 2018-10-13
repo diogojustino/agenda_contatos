@@ -45,8 +45,43 @@ public class Main {
                     }
                     break;
                 case 2:
+                    try {
+                        System.out.println("Informe o Id do contato: ");
+                        Long id = InputUtil.nextLong();
+                        Pessoa pessoa = pessoaFacade.buscarPorId(id);
+                        System.out.println(pessoa);
+
+                    } catch (RuntimeException runtimeException) {
+                        System.err.println(runtimeException.getMessage());
+                    } finally {
+                        Thread.sleep(2000);
+                    }
                     break;
                 case 3:
+                    try {
+                        System.out.println("Informe o Id do contato: ");
+                        Long id = InputUtil.nextLong();
+                        Pessoa pessoa = pessoaFacade.buscarPorId(id);
+                        System.out.println(pessoa);
+                        System.out.println("Tem certeza que deseja excluir( sim - não): ");
+                        char escolha = InputUtil.nextLine().trim().toUpperCase().charAt(0);
+                        switch (escolha) {
+                            case 'S':
+                                pessoaFacade.deletar(pessoa);
+                                System.out.println("Excluido com sucesso.");
+                                break;
+                            case 'N':
+                                System.out.println("O contato não sera excluido.");
+                                break;
+                            default:
+                                System.out.println("Valor invalido, o contato não sera excluido.");
+                        }
+                        
+                    } catch (RuntimeException runtimeException) {
+                        System.err.println(runtimeException.getMessage());
+                    } finally {
+                        Thread.sleep(2000);
+                    }
                     break;
                 case 4:
                     System.out.println("----- Contatos -----");
@@ -70,6 +105,8 @@ public class Main {
                 case 0:
                     Menu.encerramento();
                     break;
+                default:
+                    System.out.println("Valor Invalido.");
             }
         } while (opcao != 0);
     }

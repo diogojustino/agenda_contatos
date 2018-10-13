@@ -25,4 +25,12 @@ public class PessoaFacade {
     public List<Pessoa> buscarTodos() throws RuntimeException{
         return pessoaDAO.buscarTodos();
     }
+    
+    public Pessoa buscarPorId(Long id) throws RuntimeException{
+        return pessoaDAO.buscarPorId(id);
+    }
+    
+    public void deletar(Pessoa pessoa) throws RuntimeException{
+        pessoaDAO.deletar(pessoa);
+    }
 }
