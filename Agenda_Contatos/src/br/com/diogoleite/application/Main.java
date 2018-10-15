@@ -9,7 +9,6 @@ import br.com.diogoleite.facade.PessoaFacade;
 import br.com.diogoleite.model.entities.Pessoa;
 import br.com.diogoleite.util.InputUtil;
 import br.com.diogoleite.util.Menu;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -50,7 +49,8 @@ public class Main {
                         Long id = InputUtil.nextLong();
                         Pessoa pessoa = pessoaFacade.buscarPorId(id);
                         System.out.println(pessoa);
-
+                        editarPessoa(pessoa);
+                        pessoaFacade.editar(pessoa);
                     } catch (RuntimeException runtimeException) {
                         System.err.println(runtimeException.getMessage());
                     } finally {
@@ -128,5 +128,49 @@ public class Main {
 
         Pessoa pessoa = new Pessoa(nome, sobrenome, email, url, telefoneFixo, telefoneCelular);
         return pessoa;
+    }
+    
+    public static void editarPessoa(Pessoa pessoa) throws RuntimeException{
+        System.out.println("Deseja Editar o nome[Sim - Não]:");
+        char escolha = InputUtil.next().trim().toUpperCase().charAt(0);
+        if(escolha == 'S'){
+            System.out.println("Nome: ");
+            pessoa.setNome(InputUtil.next().trim().toUpperCase());
+        }
+        
+        System.out.println("Deseja Editar o sobrenome[Sim - não]: ");
+        escolha = InputUtil.next().trim().toUpperCase().charAt(0);
+        if(escolha == 'S'){
+            System.out.println("Sobrenome: ");
+            pessoa.setSobrenome(InputUtil.nextLine().trim().toUpperCase());
+        }
+        
+        System.out.println("Deseja Editar o email[Sim - não]: ");
+        escolha = InputUtil.next().trim().toUpperCase().charAt(0);
+        if(escolha == 'S'){
+            System.out.println("Email: ");
+            pessoa.setEmail(InputUtil.nextLine().trim().toUpperCase());
+        }
+        
+        System.out.println("Deseja Editar o URL[Sim - não]: ");
+        escolha = InputUtil.next().trim().toUpperCase().charAt(0);
+        if(escolha == 'S'){
+            System.out.println("URL: ");
+            pessoa.setUrl(InputUtil.next().trim().toUpperCase());
+        }
+        
+        System.out.println("Deseja Editar o Telefone Fixo[Sim - não]: ");
+        escolha = InputUtil.next().trim().toUpperCase().charAt(0);
+        if(escolha == 'S'){
+            System.out.println("Telefone Fixo: ");
+            pessoa.setTelefoneFixo(InputUtil.next().trim());
+        }
+        
+        System.out.println("Deseja Editar o Telefone Celular[Sim - não]: ");
+        escolha = InputUtil.next().trim().toUpperCase().charAt(0);
+        if(escolha == 'S'){
+            System.out.println("Telefone Celular: ");
+            pessoa.setTelefoneCelular(InputUtil.next().trim());
+        }
     }
 }

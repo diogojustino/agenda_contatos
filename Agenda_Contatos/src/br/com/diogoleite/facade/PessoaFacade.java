@@ -33,4 +33,8 @@ public class PessoaFacade {
     public void deletar(Pessoa pessoa) throws RuntimeException{
         pessoaDAO.deletar(pessoa);
     }
+    
+    public void editar(Pessoa pessoa) throws RuntimeException{
+        pessoaDAO.editar(pessoa);
+    }
 }
